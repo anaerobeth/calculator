@@ -1,3 +1,12 @@
+function guessColor(actualResult, userGuess){
+  if(actualResult === userGuess){
+    return 'green'
+  }
+  else {
+    return 'red'
+  }
+}
+
 $('#calculator').on('submit', function (e){
   e.preventDefault();
 
@@ -13,17 +22,11 @@ $('#calculator').on('submit', function (e){
   if(firstNumber !== '' && secondNumber !== ''){
     firstNumber = parseInt(firstNumber);
     secondNumber = parseInt(secondNumber);
-
     var sum = firstNumber + secondNumber;
 
-    if(parseInt($("#user-guess").val()) === sum) {
-      $resultEl.css({"background-color": 'green'});
-    }
-    else {
-      $resultEl.css({"background-color": 'red'});
-    }
-
-    $resultEl.html("Result: " + sum);
+    $resultEl.html("Result: " + sum).css({
+      "background-color": guessColor(sum, parseInt($("#user-guess").val()))
+    });
   }
   else {
     $errorDiv.html("Please provide both numbers");
