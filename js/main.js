@@ -7,7 +7,38 @@ function guessColor(actualResult, userGuess){
   }
 }
 
-$('#calculator').on('submit', function (e){
+function add(firstNumber, secondNumber){
+  return firstNumber + secondNumber;
+}
+
+function subtract(firstNumber, secondNumber){
+  return firstNumber - secondNumber;
+}
+
+function multiply(firstNumber, secondNumber){
+  return firstNumber * secondNumber;
+}
+
+function divide(firstNumber, secondNumber){
+  if(secondNumber !== 0){
+    return firstNumber / secondNumber;
+  }
+  else {
+    return 'Undefined';
+  }
+}
+
+function calculate(firstNumber, secondNumber, operation){
+  var opMap = {
+    "+": add,
+    "-": subtract,
+    "x": multiply,
+    "/": divide
+  };
+  return opMap[operation](firstNumber, secondNumber);
+}
+
+$("#calculator input[type='submit']").on('click', function (e){
   e.preventDefault();
 
   var firstNumber = $('#first-number').val();
@@ -19,13 +50,14 @@ $('#calculator').on('submit', function (e){
 
   $errorDiv.html("");
   $resultEl.html("");
+
   if(firstNumber !== '' && secondNumber !== ''){
     firstNumber = parseInt(firstNumber);
     secondNumber = parseInt(secondNumber);
-    var sum = firstNumber + secondNumber;
+    var result = calculate(firstNumber, secondNumber, $(e.currentTarget).val());
 
-    $resultEl.html("Result: " + sum).css({
-      "background-color": guessColor(sum, parseInt($("#user-guess").val()))
+    $resultEl.html("Result: " + result).css({
+      "background-color": guessColor(result, parseInt($("#user-guess").val()))
     });
   }
   else {
