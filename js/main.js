@@ -1,9 +1,9 @@
 function guessColor(actualResult, userGuess){
   if(actualResult === userGuess){
-    return 'green'
+    return 'green';
   }
   else {
-    return 'red'
+    return 'red';
   }
 }
 
